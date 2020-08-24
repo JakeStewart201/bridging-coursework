@@ -9,18 +9,30 @@ https://docs.djangoproject.com/en/3.1/topics/settings/
 For the full list of settings and their values, see
 https://docs.djangoproject.com/en/3.1/ref/settings/
 """
+import os
 
 from pathlib import Path
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve(strict=True).parent.parent
 
+def generate_secret_key(filename):
+    from django.core.management.utils import get_random_secret_key
+    key = get_random_secret_key()
+    text_file = open(filename, "w")
+    n = text_file.write("SECRET_KEY = \"" + key + "\"")
+    text_file.close()
+
+try:
+    from .secret_key import SECRET_KEY
+except ImportError:
+    SETTINGS_DIR = os.path.abspath(os.path.dirname(__file__))
+    generate_secret_key(BASE_DIR / 'mysite/secret_key.py')
+    from .secret_key import SECRET_KEY
+
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/3.1/howto/deployment/checklist/
-
-# SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'd8!)&3@skj%!)=+!s4umf_eqg_jps^obcb*0snt0tt-pp)qhng'
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
