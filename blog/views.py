@@ -5,12 +5,12 @@ from .models import Post
 from .forms import PostForm
 
 def post_list(request):
-    posts = Post.objects.filter(published_date__lte=timezone.now()).order_by('published_date')
+    posts = Post.objects.filter(published_date__lte=timezone.now()).order_by('published_date').reverse()
     return render(request, 'blog/post_list.html', {'posts': posts})
 
 @login_required
 def post_draft_list(request):
-    posts = Post.objects.filter(published_date__isnull=True).order_by('created_date')
+    posts = Post.objects.filter(published_date__isnull=True).order_by('created_date').reverse()
     return render(request, 'blog/post_draft_list.html', {'posts': posts})
 
 @login_required
@@ -22,6 +22,22 @@ def post_remove(request, pk):
 def post_detail(request, pk):
     post = get_object_or_404(Post, pk=pk)
     return render(request, 'blog/post_detail.html', {'post': post})
+
+@login_required
+def post_edit(request, pk):
+    if request.method == "POST":
+        form = PostForm(request.POST)
+        post = get_object_or_404(Post, pk=pk)
+        if form.is_valid() and ((not hasattr(post, 'published_date')) or post.published_date is None):
+            post.author = request.user
+            post.title = form.instance.title
+            post.text = form.instance.text
+            post.save()
+            return redirect('post_detail', pk=post.pk)
+    else:
+        post = get_object_or_404(Post, pk=pk)
+        form = PostForm(initial={'title': post.title, 'text': post.text}, instance=Post)
+    return render(request, 'blog/post_edit.html', {'form': form})
 
 @login_required
 def post_new(request):
