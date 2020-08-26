@@ -1,21 +1,19 @@
+from django.urls import resolve
 from django.test import TestCase
-from selenium import webdriver
+from django.http import HttpRequest
 
-class NewVisitorTest(TestCase):
+from blog.views import post_list
 
-    def setUp(self):
-        self.browser = webdriver.Firefox()
+class HomePageTest(TestCase):
 
-    def tearDown(self):
-        self.browser.quit()
+    def test_root_url_resolves_to_home_page_view(self):
+        found = resolve('/')
+        self.assertEquals(found.func,  post_list)
 
-    def test_can_open_a_blog_post(self):
-        #Opens the homepage
-        self.browser.get('http://localhost:8000')
-        #Reads the header
-        self.assertIn('Jake\'s Blog', self.browser.title)
-        self.fail('Finish the test!')
-        #Finds a list of blog posts
-        #Selects one to open
-        #Clicks on it
-        #Is directed to the blog post to read it
+    def test_home_page_returns_correct_html(self):
+        request = HttpRequest()
+        response = post_list(request)
+        html = response.content.decode('utf8')
+        self.assertTrue(html.startswith('\n<html>'))
+        self.assertIn('<title>Jake\'s Blog</title>', html)
+        self.assertTrue(html.endswith('</html>\n'))
