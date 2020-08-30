@@ -7,7 +7,7 @@ from cv.views import cv_page
 class CVPageTest(TestCase):
 
     def test_cv_url_resolves_to_cv_view(self):
-        found = resolve('/cv')
+        found = resolve('/cv/')
         self.assertEquals(found.func,  cv_page)
 
     def test_cv_returns_correct_html(self):
