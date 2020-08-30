@@ -52,7 +52,7 @@ class NewVisitorTest(unittest.TestCase):
         project_list = self.browser.find_element_by_id('projects')
         projects = project_list.find_elements_by_class_name('project')
         self.assertTrue(
-            any(project.find_element_by_class_name('name').text == 'Quacker Royale' for project in projects)
+            any('Quaker Royale' in project.find_element_by_class_name('name').text for project in projects)
         )
 
 

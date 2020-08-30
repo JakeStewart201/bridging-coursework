@@ -28,6 +28,15 @@ class Interest(models.Model):
     def __str__(self):
         return self.name
 
+class Project(models.Model):
+    title = models.CharField(max_length=200)
+    text = models.TextField()
+    date = models.DateField()
+    link = models.URLField()
+
+    def __str__(self):
+        return self.title
+
 class Job(models.Model):
     employer = models.CharField(max_length=200)
     job_title = models.CharField(max_length=200)
