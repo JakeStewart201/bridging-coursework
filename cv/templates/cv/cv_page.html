@@ -1,18 +1,40 @@
 {% extends 'blog/base.html' %}
+{% load markdown_extras %}
 
 {% block page_name %}Jake's CV{% endblock %}
 
 {% block content %}
     <div id="education">
+        <h2>Education</h2>
         {% for qualification in qualifications %}
             <div class="qualification">
+                <div class="course">
+                    {{ qualification.course }}
+                </div>
                 <div class="institution">
                     {{ qualification.institution }}
                 </div>
                 <div class="date">
-                    {{ qualification.start_date|date:'M Y' }} to {{ qualification.end_date|date:'M Y' }}
+                    {{ qualification.start_date | date:'M Y' }} to {{ qualification.end_date | date:'M Y' }}
                 </div>
-                <p>{{ qualification.text }}</p>
+                <p>{{ qualification.text | linebreaksbr | markdown | safe }}</p>
+            </div>
+        {% endfor %}
+    </div>
+    <div id="employment_history">
+        {% for job in jobs %}
+        <h2>Work Experience</h2>
+            <div class="job">
+                <div class="employer">
+                    {{ job.employer }}
+                </div>
+                <div class="job_title">
+                    {{ job.job_title }}
+                </div>
+                <div class="date">
+                    {{ job.start_date | date:'M Y' }} to {{ job.end_date | date:'M Y' }}
+                </div>
+                <p>{{ job.text | linebreaksbr | markdown | safe }}</p>
             </div>
         {% endfor %}
     </div>
