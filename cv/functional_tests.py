@@ -38,7 +38,7 @@ class NewVisitorTest(unittest.TestCase):
         skill_list = self.browser.find_element_by_id('skills')
         skills = skill_list.find_elements_by_class_name('skill')
         self.assertTrue(
-            any(skill.find_element_by_class_name('name').text == 'Python' for skill in skills)
+            any('Python' in skill.text for skill in skills)
         )
 
         #Can read interests

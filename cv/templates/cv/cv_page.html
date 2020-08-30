@@ -21,9 +21,20 @@
             </div>
         {% endfor %}
     </div>
+    <div id="skills">
+        <h2>Technical Skills</h2>
+        {% for skill in skills %}
+            <div class="skill">
+                <div class="name">
+                    {{ skill.name }}
+                </div>
+                <p>{{ skill.text | linebreaksbr | markdown | safe }}</p>
+            </div>
+        {% endfor %}
+    </div>
     <div id="employment_history">
-        {% for job in jobs %}
         <h2>Work Experience</h2>
+        {% for job in jobs %}
             <div class="job">
                 <div class="employer">
                     {{ job.employer }}
