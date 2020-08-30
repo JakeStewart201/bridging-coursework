@@ -45,7 +45,7 @@ class NewVisitorTest(unittest.TestCase):
         interest_list = self.browser.find_element_by_id('interests')
         interests = interest_list.find_elements_by_class_name('interest')
         self.assertTrue(
-            any(interest.find_element_by_class_name('name').text == 'Climbing' for interest in interests)
+            any('climbing' in interest.text for interest in interests)
         )
 
         #Can read projects

@@ -19,6 +19,15 @@ class Skill(models.Model):
     def __str__(self):
         return self.name
 
+
+class Interest(models.Model):
+    name = models.CharField(max_length=200)
+    text = models.TextField()
+    importance = models.PositiveIntegerField()
+
+    def __str__(self):
+        return self.name
+
 class Job(models.Model):
     employer = models.CharField(max_length=200)
     job_title = models.CharField(max_length=200)

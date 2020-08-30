@@ -49,5 +49,13 @@
             </div>
         {% endfor %}
     </div>
+    <div id="interests">
+        <h2>Interests</h2>
+        {% for interest in interests %}
+            <div class="interest">
+                <p>{{ interest.text | linebreaksbr | markdown | safe }}</p>
+            </div>
+        {% endfor %}
+    </div>
 {% endblock %}
 
