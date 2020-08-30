@@ -21,10 +21,12 @@ class NewVisitorTest(unittest.TestCase):
         self.assertIn('CV', header_text)
 
         #Can read education history
-        eduction = self.browser.find_element_by_id('education')
+        education = self.browser.find_element_by_id('education')
         qualifications = education.find_elements_by_class_name('qualification')
+        for qualification in qualifications:
+            print(qualification.find_element_by_class_name('institution').text)
         self.assertTrue(
-            any(qualification.find_element_by_class_name('institution').text == 'Univeristy of Birmingham' for qualification in qualifications)
+            any(qualification.find_element_by_class_name('institution').text == 'University of Birmingham' for qualification in qualifications)
         )
 
         #Can read employment history
