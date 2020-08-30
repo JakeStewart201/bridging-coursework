@@ -15,8 +15,8 @@ class NewVisitorTest(unittest.TestCase):
 
         #Reads the header
         self.assertIn('Jake\'s Blog', self.browser.title)
-        header_text = self.browser.find_element_by_tag_name('h1').text
-        self.assertIn('Jake\'s Blog', header_text)
+        header_text = self.browser.find_element_by_class_name('active').text
+        self.assertIn('Blog', header_text)
 
         #Finds a list of blog posts
         posts = self.browser.find_element_by_class_name('col-md-8')

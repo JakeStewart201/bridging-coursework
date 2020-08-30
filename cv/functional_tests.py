@@ -17,8 +17,8 @@ class NewVisitorTest(unittest.TestCase):
         self.assertIn('Jake\'s CV', self.browser.title)
 
         #Sees the title for the CV
-        header_text = self.browser.find_element_by_tag_name('h1').text
-        self.assertIn('Jake\'s CV', header_text)
+        header_text = self.browser.find_element_by_class_name('active').text
+        self.assertIn('CV', header_text)
 
         #Can read education history
         eduction = self.browser.find_element_by_id('education')
