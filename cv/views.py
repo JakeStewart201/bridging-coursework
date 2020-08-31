@@ -1,7 +1,7 @@
 from django.shortcuts import render, redirect
 from django.contrib.auth.decorators import login_required
 
-from .forms import QualificationForm
+from .forms import QualificationForm, JobForm
 from .models import Qualification, Job, Skill, Interest, Project
 
 def cv_page(request):
@@ -21,5 +21,17 @@ def edit_qualification(request):
             post.save()
             return redirect('cv_page')
     else:
-        form = QualificationForm
+        form = QualificationForm()
     return render(request, 'cv/edit_qualification.html', {'form': form})
+
+@login_required
+def edit_job(request):
+    if request.method == "POST":
+        form = JobForm(request.POST)
+        if form.is_valid():
+            post = form.save(commit=False)
+            post.save()
+            return redirect('cv_page')
+    else:
+        form = JobForm()
+    return render(request, 'cv/edit_job.html', {'form': form})
