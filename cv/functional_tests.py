@@ -94,7 +94,7 @@ class AdminEditCVTest(unittest.TestCase):
         #Enter finish date
         end_date = self.browser.find_element_by_name('end_date')
         end_date.send_keys('31/08/2020')
-        #Enter finish date
+        #Enter text
         end_date = self.browser.find_element_by_name('text')
         end_date.send_keys('Completed')
         #Click submit
@@ -110,6 +110,45 @@ class AdminEditCVTest(unittest.TestCase):
         qualifications = education.find_elements_by_class_name('qualification')
         self.assertTrue(
             any(qualification.find_element_by_class_name('institution').text == 'University of Testing' for qualification in qualifications)
+        )
+
+    def test_can_add_job(self):
+        #Go to edit page
+        self.browser.get('http://localhost:8000/cv')
+        
+        #Find the employment section
+        employment = self.browser.find_element_by_id('employment_history')
+        
+        #Clicks on the edit link
+        employment.find_element_by_link_text('New').click()
+        self.assertTrue(self.browser.current_url == 'http://localhost:8000/edit_job/')
+
+        #Add new job
+        #Enter employer
+        employer_box = self.browser.find_element_by_name('employer')
+        employer_box.send_keys('University of Testing')
+        #Enter job title
+        course_box = self.browser.find_element_by_name('job_title')
+        course_box.send_keys('Test Driven Developer')
+        #Enter start date
+        start_date = self.browser.find_element_by_name('start_date')
+        start_date.send_keys('1/06/2020')
+        #Enter finish date
+        end_date = self.browser.find_element_by_name('text')
+        end_date.send_keys('Completed')
+        #Click submit
+        submit = self.browser.find_element_by_xpath('//button[text()="Save"]')
+        submit.click()
+        
+        #User gets redirected to cv page
+        self.assertTrue(self.browser.current_url == 'http://localhost:8000/cv/')
+        
+        #Job shows up on cv page
+        #Can read job history
+        education = self.browser.find_element_by_id('employment_history')
+        jobs = education.find_elements_by_class_name('job')
+        self.assertTrue(
+            any(job.find_element_by_class_name('employer').text == 'University of Testing' for job in jobs)
         )
         
 
