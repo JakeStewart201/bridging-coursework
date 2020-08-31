@@ -1,3 +1,8 @@
+#mainblock {
+     padding-top: 25px;
+}
+
+
 .col-md-8 {
     width: 95%;
 }
@@ -43,11 +48,15 @@ h1, h2, h3, h4 {
     margin-right: 20px;
 }
 
-.post {
+.post, .cv-block {
     margin-bottom: 20px;
     background-color: #eaeaea;
     padding: 20px 20px 20px 40px;
     border-radius: 10px;
+}
+
+.section {
+    display: inline-block;
 }
 
 .post h2 a, .post h2 a:visited {

@@ -5,87 +5,105 @@
 
 {% block content %}
     <div id="education">
-        <h2>Education</h2>
+        <h2 class="section">Education</h2>
         {% if user.is_authenticated %}
-            <a class="btn btn-default" href="{% url 'edit_qualification' %}">New</a>
+            <a class="btn btn-outline-secondary float-right" href="{% url 'edit_qualification' %}">New</a>
         {% endif %}
         {% for qualification in qualifications %}
-            <div class="qualification">
-                <div class="course">
-                    {{ qualification.course }}
+            <div class="qualification cv-block">
+                <div class="h5 font-weight-bold">
+                    <div class="course d-inline-block">
+                        {{ qualification.course }}
+                    </div>
+                    -
+                    <div class="institution d-inline-block">
+                        {{ qualification.institution }}
+                    </div>
+                    |
+                    <div class="date d-inline-block">
+                        {{ qualification.start_date | date:'M Y' }} to {{ qualification.end_date | date:'M Y' }}
+                    </div>
                 </div>
-                <div class="institution">
-                    {{ qualification.institution }}
-                </div>
-                <div class="date">
-                    {{ qualification.start_date | date:'M Y' }} to {{ qualification.end_date | date:'M Y' }}
-                </div>
-                <p>{{ qualification.text | linebreaksbr | markdown | safe }}</p>
+                {{ qualification.text | linebreaksbr | markdown | safe }}
             </div>
         {% endfor %}
     </div>
     <div id="skills">
-        <h2>Technical Skills</h2>
+        <h2 class="section">Technical Skills</h2>
         {% if user.is_authenticated %}
-            <a class="btn btn-default" href="{% url 'edit_skill' %}">New</a>
+            <a class="btn btn-outline-secondary float-right" href="{% url 'edit_skill' %}">New</a>
         {% endif %}
         {% for skill in skills %}
-            <div class="skill">
-                <div class="name">
-                    {{ skill.name }}
+            <div class="skill cv-block">
+                <div class="h5 font-weight-bold">
+                    <div class="name">
+                        {{ skill.name }}
+                    </div>
                 </div>
-                <p>{{ skill.text | linebreaksbr | markdown | safe }}</p>
+                {{ skill.text | linebreaksbr | markdown | safe }}
             </div>
         {% endfor %}
     </div>
     <div id="projects">
-        <h2>Projects</h2>
+        <h2 class="section">Projects</h2>
         {% if user.is_authenticated %}
-            <a class="btn btn-default" href="{% url 'edit_project' %}">New</a>
+            <a class="btn btn-outline-secondary float-right" href="{% url 'edit_project' %}">New</a>
         {% endif %}
         {% for project in projects %}
-            <div class="project">
-                <div class="name">
-                    {{ project.title }}
-                </div>
-                <div class="date">
-                    {{ project.date | date:'Y' }}
+            <div class="project cv-block">
+                <div class="h5 font-weight-bold">
+                    <div class="name d-inline-block">
+                        {{ project.title }}
+                    </div>
+                    |
+                    <div class="date d-inline-block">
+                        {{ project.date | date:'Y' }}
+                    </div>
                 </div>
                 <div class="link">
                     <a href="{{ project.link }}">Link</a>
                 </div>
-                <p>{{ project.text | linebreaksbr | markdown | safe }}</p>
+                {{ project.text | linebreaksbr | markdown | safe }}
             </div>
         {% endfor %}
     </div>
     <div id="employment_history">
-        <h2>Work Experience</h2>
+        <h2 class="section">Work Experience</h2>
         {% if user.is_authenticated %}
-            <a class="btn btn-default" href="{% url 'edit_job' %}">New</a>
+            <a class="btn btn-outline-secondary float-right" href="{% url 'edit_job' %}">New</a>
         {% endif %}
         {% for job in jobs %}
-            <div class="job">
-                <div class="employer">
-                    {{ job.employer }}
+            <div class="job cv-block">
+                <div class="h5 font-weight-bold">
+                    <div class="employer d-inline-block">
+                        {{ job.employer }}
+                    </div>
+                    -
+                    <div class="job_title d-inline-block">
+                        {{ job.job_title }}
+                    </div>
+                    |
+                    <div class="date d-inline-block">
+                        {{ job.start_date | date:'M Y' }} to 
+                        {% if job.end_date == None %}
+                            Present
+                        {% else %}
+                            {{ job.end_date | date:'M Y' }}
+                        {% endif %}
+                    </div>
                 </div>
-                <div class="job_title">
-                    {{ job.job_title }}
-                </div>
-                <div class="date">
-                    {{ job.start_date | date:'M Y' }} to {{ job.end_date | date:'M Y' }}
-                </div>
-                <p>{{ job.text | linebreaksbr | markdown | safe }}</p>
+                {{ job.text | linebreaksbr | markdown | safe }}
             </div>
         {% endfor %}
     </div>
     <div id="interests">
-        <h2>Interests</h2>
+        <h2 class="section">Interests</h2>
         {% if user.is_authenticated %}
-            <a class="btn btn-default" href="{% url 'edit_interest' %}">New</a>
+            <a class="btn btn-outline-secondary float-right" href="{% url 'edit_interest' %}">New</a>
         {% endif %}
         {% for interest in interests %}
-            <div class="interest">
-                <p>{{ interest.text | linebreaksbr | markdown | safe }}</p>
+            <div class="interest cv-block">
+                {{ interest.text | linebreaksbr | markdown | safe }}
             </div>
         {% endfor %}
     </div>
