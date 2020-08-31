@@ -128,8 +128,8 @@ class AdminEditCVTest(unittest.TestCase):
         employer_box = self.browser.find_element_by_name('employer')
         employer_box.send_keys('University of Testing')
         #Enter job title
-        course_box = self.browser.find_element_by_name('job_title')
-        course_box.send_keys('Test Driven Developer')
+        job_title = self.browser.find_element_by_name('job_title')
+        job_title.send_keys('Test Driven Developer')
         #Enter start date
         start_date = self.browser.find_element_by_name('start_date')
         start_date.send_keys('1/06/2020')
@@ -164,11 +164,11 @@ class AdminEditCVTest(unittest.TestCase):
 
         #Add new skill
         #Enter name
-        employer_box = self.browser.find_element_by_name('name')
-        employer_box.send_keys('Testing')
+        name = self.browser.find_element_by_name('name')
+        name.send_keys('Testing')
         #Enter importance
-        course_box = self.browser.find_element_by_name('importance')
-        course_box.send_keys('5')
+        importance = self.browser.find_element_by_name('importance')
+        importance.send_keys('5')
         #Enter text
         text = self.browser.find_element_by_name('text')
         text.send_keys('testing')
@@ -185,6 +185,42 @@ class AdminEditCVTest(unittest.TestCase):
         skills = skill_list.find_elements_by_class_name('skill')
         self.assertTrue(
             any('testing' in skill.text for skill in skills)
+        )
+
+    def test_can_add_interest(self):
+        #Go to edit page
+        self.browser.get('http://localhost:8000/cv')
+        
+        #Find the interests section
+        interests = self.browser.find_element_by_id('interests')
+        
+        #Clicks on the edit link
+        interests.find_element_by_link_text('New').click()
+        self.assertTrue(self.browser.current_url == 'http://localhost:8000/edit_interest/')
+
+        #Add new interest
+        #Enter name
+        employer_box = self.browser.find_element_by_name('name')
+        employer_box.send_keys('Testing')
+        #Enter importance
+        importance = self.browser.find_element_by_name('importance')
+        importance.send_keys('5')
+        #Enter text
+        text = self.browser.find_element_by_name('text')
+        text.send_keys('testing')
+        #Click submit
+        submit = self.browser.find_element_by_xpath('//button[text()="Save"]')
+        submit.click()
+        
+        #User gets redirected to cv page
+        self.assertTrue(self.browser.current_url == 'http://localhost:8000/cv/')
+        
+        #Interest shows up on cv page
+        #Can read Interests
+        interest_list = self.browser.find_element_by_id('interests')
+        interests = interest_list.find_elements_by_class_name('interest')
+        self.assertTrue(
+            any('testing' in interest.text for interest in interests)
         )
         
 
