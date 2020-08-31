@@ -15,7 +15,7 @@
                     <div class="course d-inline-block">
                         {{ qualification.course }}
                     </div>
-                    -
+                    –
                     <div class="institution d-inline-block">
                         {{ qualification.institution }}
                     </div>
@@ -55,13 +55,14 @@
                     <div class="name d-inline-block">
                         {{ project.title }}
                     </div>
+                    –
+                    <div class="link d-inline-block">
+                        <a href="{{ project.link }}">Link</a>
+                    </div>
                     |
                     <div class="date d-inline-block">
                         {{ project.date | date:'Y' }}
                     </div>
-                </div>
-                <div class="link">
-                    <a href="{{ project.link }}">Link</a>
                 </div>
                 {{ project.text | linebreaksbr | markdown | safe }}
             </div>
@@ -78,7 +79,7 @@
                     <div class="employer d-inline-block">
                         {{ job.employer }}
                     </div>
-                    -
+                    –
                     <div class="job_title d-inline-block">
                         {{ job.job_title }}
                     </div>
