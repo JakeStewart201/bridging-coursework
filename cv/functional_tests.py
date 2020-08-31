@@ -134,8 +134,8 @@ class AdminEditCVTest(unittest.TestCase):
         start_date = self.browser.find_element_by_name('start_date')
         start_date.send_keys('1/06/2020')
         #Enter text
-        end_date = self.browser.find_element_by_name('text')
-        end_date.send_keys('Completed')
+        text = self.browser.find_element_by_name('text')
+        text.send_keys('Completed')
         #Click submit
         submit = self.browser.find_element_by_xpath('//button[text()="Save"]')
         submit.click()
@@ -221,6 +221,45 @@ class AdminEditCVTest(unittest.TestCase):
         interests = interest_list.find_elements_by_class_name('interest')
         self.assertTrue(
             any('testing' in interest.text for interest in interests)
+        )
+
+    def test_can_add_project(self):
+        #Go to edit page
+        self.browser.get('http://localhost:8000/cv')
+        
+        #Find the project section
+        project = self.browser.find_element_by_id('projects')
+        
+        #Clicks on the edit link
+        project.find_element_by_link_text('New').click()
+        self.assertTrue(self.browser.current_url == 'http://localhost:8000/edit_project/')
+
+        #Add new job
+        #Enter name
+        name = self.browser.find_element_by_name('title')
+        name.send_keys('Test')
+        #Enter url
+        link = self.browser.find_element_by_name('link')
+        link.send_keys('https://github.com/JakeStewart201/bridging-coursework')
+        #Enter date
+        date = self.browser.find_element_by_name('date')
+        date.send_keys('1/06/2020')
+        #Enter text
+        text = self.browser.find_element_by_name('text')
+        text.send_keys('Completed')
+        #Click submit
+        submit = self.browser.find_element_by_xpath('//button[text()="Save"]')
+        submit.click()
+        
+        #User gets redirected to cv page
+        self.assertTrue(self.browser.current_url == 'http://localhost:8000/cv/')
+        
+        #Job shows up on cv page
+        #Can read job history
+        project_list = self.browser.find_element_by_id('projects')
+        projects = project_list.find_elements_by_class_name('project')
+        self.assertTrue(
+            any(project.find_element_by_class_name('name').text == 'Test' for project in projects)
         )
         
 

@@ -7,4 +7,5 @@ urlpatterns = [
     path('edit_job/', views.edit_job, name='edit_job'),
     path('edit_skill/', views.edit_skill, name='edit_skill'),
     path('edit_interest/', views.edit_interest, name='edit_interest'),
+    path('edit_project/', views.edit_project, name='edit_project'),
 ]
