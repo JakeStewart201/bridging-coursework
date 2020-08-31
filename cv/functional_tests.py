@@ -59,7 +59,12 @@ class AdminEditCVTest(unittest.TestCase):
 
     def setUp(self):
         self.browser = webdriver.Firefox()
-        #Login as admin
+        #Login as admindriver.get (“URL”)
+        self.browser.get('http://localhost:8000/accounts/logout')
+        self.browser.get('http://localhost:8000/accounts/login')
+        self.browser.find_element_by_id("id_username").send_keys("admin")
+        self.browser.find_element_by_id ("id_password").send_keys("admin")
+        self.browser.find_element_by_id("submit").click()
 
     def tearDown(self):
         #Logout
@@ -71,24 +76,27 @@ class AdminEditCVTest(unittest.TestCase):
         
         #Find the qualification section
         education = self.browser.find_element_by_id('education')
-
+        
         #Clicks on the edit link
-        education.find_element_by_class_name('new').click()
+        education.find_element_by_link_text('New').click()
         self.assertTrue(self.browser.current_url == 'http://localhost:8000/edit_qualification/')
 
         #Add new qualification
         #Enter institution
-        institution_box = self.browser.find_element_by_id('institution_box')
+        institution_box = self.browser.find_element_by_name('institution')
         institution_box.send_keys('University of Testing')
         #Enter course
-        course_box = self.browser.find_element_by_id('course_box')
+        course_box = self.browser.find_element_by_name('course')
         course_box.send_keys('Test Driven Development')
         #Enter start date
-        start_date = self.browser.find_element_by_id('start_date')
-        start_date.send_keys('1-06-2020')
+        start_date = self.browser.find_element_by_name('start_date')
+        start_date.send_keys('1/06/2020')
         #Enter finish date
-        end_date = self.browser.find_element_by_id('end_date')
-        end_date.send_keys('31-08-2020')
+        end_date = self.browser.find_element_by_name('end_date')
+        end_date.send_keys('31/08/2020')
+        #Enter finish date
+        end_date = self.browser.find_element_by_name('text')
+        end_date.send_keys('Completed')
         #Click submit
         submit = self.browser.find_element_by_xpath('//button[text()="Save"]')
         submit.click()
