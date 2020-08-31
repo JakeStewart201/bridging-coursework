@@ -125,7 +125,7 @@ class AdminEditCVTest(unittest.TestCase):
 
         #Add new job
         #Enter employer
-        employer_box = self.browser.find_element_by_name('employer')
+        employer_box = self.browser.find_element_by_name('name')
         employer_box.send_keys('University of Testing')
         #Enter job title
         course_box = self.browser.find_element_by_name('job_title')
@@ -133,7 +133,7 @@ class AdminEditCVTest(unittest.TestCase):
         #Enter start date
         start_date = self.browser.find_element_by_name('start_date')
         start_date.send_keys('1/06/2020')
-        #Enter finish date
+        #Enter text
         end_date = self.browser.find_element_by_name('text')
         end_date.send_keys('Completed')
         #Click submit
@@ -149,6 +149,42 @@ class AdminEditCVTest(unittest.TestCase):
         jobs = education.find_elements_by_class_name('job')
         self.assertTrue(
             any(job.find_element_by_class_name('employer').text == 'University of Testing' for job in jobs)
+        )
+
+    def test_can_add_skill(self):
+        #Go to edit page
+        self.browser.get('http://localhost:8000/cv')
+        
+        #Find the skills section
+        skills = self.browser.find_element_by_id('skills')
+        
+        #Clicks on the edit link
+        skills.find_element_by_link_text('New').click()
+        self.assertTrue(self.browser.current_url == 'http://localhost:8000/edit_skills/')
+
+        #Add new skill
+        #Enter name
+        employer_box = self.browser.find_element_by_name('name')
+        employer_box.send_keys('Testing')
+        #Enter priority
+        course_box = self.browser.find_element_by_name('priority')
+        course_box.send_keys('5')
+        #Enter text
+        end_date = self.browser.find_element_by_name('testing')
+        end_date.send_keys('Completed')
+        #Click submit
+        submit = self.browser.find_element_by_xpath('//button[text()="Save"]')
+        submit.click()
+        
+        #User gets redirected to cv page
+        self.assertTrue(self.browser.current_url == 'http://localhost:8000/cv/')
+        
+        #Skill shows up on cv page
+        #Can read skills
+        skill_list = self.browser.find_element_by_id('skills')
+        skills = skill_list.find_elements_by_class_name('skill')
+        self.assertTrue(
+            any('testing' in skill.text for skill in skills)
         )
         
 

@@ -5,11 +5,11 @@ from .forms import QualificationForm, JobForm
 from .models import Qualification, Job, Skill, Interest, Project
 
 def cv_page(request):
-    qualifications = Qualification.objects.order_by('start_date')
-    jobs = Job.objects.order_by('start_date')
+    qualifications = Qualification.objects.order_by('start_date').reverse()
+    jobs = Job.objects.order_by('start_date').reverse()
     skills = Skill.objects.order_by('importance')
     interests = Interest.objects.order_by('importance')
-    projects = Project.objects.order_by('date')
+    projects = Project.objects.order_by('date').reverse()
     return render(request, 'cv/cv_page.html', {'qualifications': qualifications, 'jobs': jobs, 'skills': skills, 'interests': interests, 'projects': projects})
 
 @login_required
