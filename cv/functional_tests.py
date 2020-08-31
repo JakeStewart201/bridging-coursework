@@ -125,7 +125,7 @@ class AdminEditCVTest(unittest.TestCase):
 
         #Add new job
         #Enter employer
-        employer_box = self.browser.find_element_by_name('name')
+        employer_box = self.browser.find_element_by_name('employer')
         employer_box.send_keys('University of Testing')
         #Enter job title
         course_box = self.browser.find_element_by_name('job_title')
@@ -160,18 +160,18 @@ class AdminEditCVTest(unittest.TestCase):
         
         #Clicks on the edit link
         skills.find_element_by_link_text('New').click()
-        self.assertTrue(self.browser.current_url == 'http://localhost:8000/edit_skills/')
+        self.assertTrue(self.browser.current_url == 'http://localhost:8000/edit_skill/')
 
         #Add new skill
         #Enter name
         employer_box = self.browser.find_element_by_name('name')
         employer_box.send_keys('Testing')
-        #Enter priority
-        course_box = self.browser.find_element_by_name('priority')
+        #Enter importance
+        course_box = self.browser.find_element_by_name('importance')
         course_box.send_keys('5')
         #Enter text
-        end_date = self.browser.find_element_by_name('testing')
-        end_date.send_keys('Completed')
+        text = self.browser.find_element_by_name('text')
+        text.send_keys('testing')
         #Click submit
         submit = self.browser.find_element_by_xpath('//button[text()="Save"]')
         submit.click()
